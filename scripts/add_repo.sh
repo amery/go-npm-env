@@ -3,11 +3,21 @@
 set -eu
 
 add_repo() {
-	local repo="$1" path="src/$1"
-	local url="https://$repo"
+	local repo="$1" path="src/$1" url=
 	local dom=${repo%%/*}
 	local prj=${repo#$dom/}
 	shift
+
+	# go-import translations
+	case "$dom" in
+	go.sancus.dev)
+		dom="github.com"
+		prj="sancus-project/go-$prj"
+		repo="$dom/$prj"
+		;;
+	esac
+
+	url="https://$repo"
 
 	case "$dom" in
 	github.com)
