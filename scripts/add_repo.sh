@@ -1,26 +1,21 @@
 #!/bin/sh
 
-set -eux
+set -eu
 
 add_repo() {
-	local repo="$1" path="src/$1" url= dom=
+	local repo="$1" path="src/$1"
+	local url="https://$repo"
+	local dom=${repo%%/*}
+	local prj=${repo#$dom/}
 	shift
 
-	case "$repo" in
-	github.com/*)
-		dom=${repo%%/*}
-
-		case "${repo#$dom/}" in
-		$USER/*|justprintit/*)
+	case "$dom" in
+	github.com)
+		case "$prj" in
+		$USER/*)
 			url="ssh://git@$repo.git"
 			;;
-		*)
-			url="https://$repo"
-			;;
 		esac
-		;;
-	*)
-		url="https://$repo"
 		;;
 	esac
 
