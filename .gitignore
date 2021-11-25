@@ -1,3 +1,4 @@
 /.docker-run-cache
 /bin
 /lib
+/pkg
