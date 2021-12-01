@@ -1,8 +1,16 @@
-alias npm='x npm'
-alias npx='x npx'
-alias nuxi='x npx nuxi'
-alias nuxt='x npx nuxt'
-alias yarn='x yarn'
-alias go='x go'
-alias code='x code'
-alias make='x make'
+if WS="$(x --root)"; then
+	alias npm='x npm'
+	alias npx='x npx'
+	alias nuxi='x npx nuxi'
+	alias nuxt='x npx nuxt'
+	alias yarn='x yarn'
+	alias go='x go'
+	alias code='x code'
+	alias make='x make'
+
+	if [ -d "$WS" ]; then
+		if ! echo "$PATH" | tr ':' '\n' | grep -q "^$WS/bin\$"; then
+			export PATH="$WS/bin:$PATH"
+		fi
+	fi
+fi
